@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   LatLng? _currentLocationInfo;
   StreamSubscription? _streamLocationData;
 
-  late Marker _marker;
+  late Marker _markerPoint;
   final List<LatLng> _latLngList = [];
   final Set<Polyline> _polyLineSet = {};
 
@@ -65,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void updateMarkerInformation() {
-    _marker = Marker(
-      markerId: const MarkerId('current_location_marker_id'),
+    _markerPoint = Marker(
+      markerId: const MarkerId('currentLocationMarkerId'),
       position: _currentLocationInfo!,
       infoWindow: InfoWindow(
         title: 'My current location',
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       onTap: () {
         _googleMapController
-            .showMarkerInfoWindow(const MarkerId('current_location_marker_id'));
+            .showMarkerInfoWindow(const MarkerId('currentLocationMarkerId'));
       },
     );
   }
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void updatePolylineInformation() {
     _latLngList.add(_currentLocationInfo!);
     _polyLineSet.add(Polyline(
-      polylineId: const PolylineId('polyline_list'),
+      polylineId: const PolylineId('polylineList'),
       points: _latLngList,
       color: Colors.blue,
       width: 17,
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         initialCameraPosition:
         CameraPosition(zoom: 14, target: _currentLocationInfo!),
-        markers: {_marker},
+        markers: {_markerPoint},
         polylines: _polyLineSet,
         myLocationEnabled: true,
         myLocationButtonEnabled: true,
